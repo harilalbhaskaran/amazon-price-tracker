@@ -15,7 +15,7 @@ def analyze_price(logger):
     app = requests.get(URL, headers=headers)
     scrapper = BeautifulSoup(app.content, 'html.parser')
 
-    # print(scrapper.prettify())
+    print(scrapper.prettify())
 
     price_whole = scrapper.find("span", {"class": "a-price-whole"}).text
     productTitle = scrapper.find(
