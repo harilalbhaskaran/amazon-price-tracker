@@ -44,7 +44,8 @@ def analyze_price(logger):
     productTitle = scrapper.find(
         "span", {"id": "productTitle"}).text.strip()[:62]
     float_price = float(price_whole[0:8].replace(',', ''))
-    logger.info(productTitle + " - " + str(int(float_price)))   
+    logger.info(productTitle + " - " + str(int(float_price))) 
+    print(str(int(float_price)))  
 
 
 def main():
