@@ -5,6 +5,10 @@ import logging.handlers
 import os
 from fake_useragent import UserAgent
 
+proxies = {
+    'http': 'http://132.145.223.145:3128',
+    'https': 'http://132.145.223.145:3128',
+}
 
 URL = 'https://www.amazon.in/Fujifilm-X-T4-Mirrorless-XF16-80mm-Touchscreen/dp/B08557SY7B/'
 
@@ -12,19 +16,29 @@ URL = 'https://www.amazon.in/Fujifilm-X-T4-Mirrorless-XF16-80mm-Touchscreen/dp/B
 
 #headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 ua=UserAgent()
-hdr = {'User-Agent': ua.random,
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-      'Accept-Encoding': 'none',
-      'Accept-Language': 'en-US,en;q=0.8',
-      'Connection': 'keep-alive'}
-
+headers = {
+    'authority': 'www.amazon.in',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'accept-language': 'en-IN,en;q=0.9,ml;q=0.8',
+    'cache-control': 'max-age=0',
+    'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Linux"',
+    'sec-ch-viewport-width': '1920',
+    'sec-fetch-dest': 'document',
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-site': 'same-origin',
+    'sec-fetch-user': '?1',
+    'service-worker-navigation-preload': 'true',
+    'upgrade-insecure-requests': '1',
+    'user-agent': ua.random,
+}
 
 def analyze_price(logger):
-    app = requests.get(URL, headers=hdr)
+    app = requests.get(URL, headers=headers, proxies=proxies)
     scrapper = BeautifulSoup(app.content, 'html.parser')
 
-    print(scrapper.prettify())
+    #print(scrapper.prettify())
 
     price_whole = scrapper.find("span", {"class": "a-price-whole"}).text
     productTitle = scrapper.find(
