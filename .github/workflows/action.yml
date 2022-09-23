@@ -1,4 +1,4 @@
-name: Run Daily
+name: run daily
 
 on:
   #push:
@@ -31,7 +31,7 @@ jobs:
           pip install -r requirements.txt
           source venv/bin/activate
       - name: execute script
-        run: python src/main.py
+        run: python src/main.py ${{ secrets.PROXY }}
           
       - name: commit files
         run: |
