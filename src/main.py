@@ -35,7 +35,8 @@ headers = {
 }
 
 def analyze_price(logger):
-    app = requests.get(URL, headers=headers, proxies=proxies)
+    #app = requests.get(URL, headers=headers, proxies=proxies)
+    app = requests.get(URL, headers=headers)
     scrapper = BeautifulSoup(app.content, 'html.parser')
 
     #print(scrapper.prettify())
